@@ -17,7 +17,11 @@ Route::get('/posts/post','PostsController@index');
 Route::get('/posts/create','PostsController@create');
 Route::get('/posts','PostsController@store');
 Route::get('/posts,{post}','PostsController@show');
+Route::put('/posts/{post}/update','PostsController@update');
+Route::post('/posts','PostsController@store');
 
+
+Route::post('/posts/{post}/comments','Commentscontroller@store')->name('comments.store');
 
 Route::get('/', 'PostsController@index')->name('Master');
 
