@@ -18,8 +18,6 @@
                     <div class="card">
                         <div class="card-block">
                             <form method="POST" action="{{ route('comments.store', [$post->id]) }}">
-                                {{ method_field('PATCH') }}
-
                                 {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="body">comment</label>
