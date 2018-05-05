@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 use App\Post;
 use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class Commentscontroller extends Controller
 {
     public function store(Post $post)
     {
-      $this->validate(request(),['body' => 'required|min:5']);
+        //
+            $post->comments()->create([
+            'body' => request('body'),
 
-      $post->addComment(request('body'));
+            'user_id' => Auth::user()->id
 
-      return back();
+
+
+            ]);
+
+        return back();
     }
 }

@@ -13,6 +13,12 @@
                     <p class="blog-post-meta"> {{ $post->created_at->format('Y-m-d') }}<br>
                         <strong> {{ $post->body }} </strong>
 
+                    <div class="comment">
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <li class="list-group-item">
+                                    {{$comment->body }}
+
 
 
                     <div class="card">
@@ -30,6 +36,7 @@
                         </div>
 
                         <br/>
+                        @endforeach
                     </div>
                 </div>
 
