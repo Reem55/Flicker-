@@ -14,14 +14,20 @@
 Route::get('/', function () { return view('master');
 });
 Route::get('/posts/post','PostsController@index');
-Route::get('/posts/create','PostsController@create');
+Route::get('/posts/create','PostsController@create')->name('posts.create');
 Route::get('/posts','PostsController@store');
-Route::get('/posts,{post}','PostsController@show');
-Route::put('/posts/{post}/update','PostsController@update');
+Route::get('/posts,{post}','PostsController@show')->name('posts.show');
+Route::put('/posts/{post}/update','PostsController@update')->name('posts.update');
+Route::get('/posts/{post}/edit','PostsController@edit')->name('posts.edit');
 Route::post('/posts','PostsController@store');
+Route::get('/posts/{post}/delete','PostsController@destroy')->name('posts.delete');
+
 
 
 Route::post('/posts/{post}/comments','Commentscontroller@store')->name('comments.store');
+Route::get('/comments/{comment}/edit','CommentsController@edit')->name('comments.edit');
+Route::get('/comments/{comment}','CommentsController@update')->name('comments.update');
+Route::get('/comments/{comment}/delete','CommentsController@destroy')->name('comments.delete');
 
 Route::get('/', 'PostsController@index')->name('Master');
 

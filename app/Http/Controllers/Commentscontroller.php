@@ -23,4 +23,23 @@ class Commentscontroller extends Controller
 
         return back();
     }
+
+
+    public function update(Request $request, Comment $comment)
+    {
+        $this->validate($request, [
+            'body'=>'required',
+        ]);
+        $comment->update($request->all());
+        // Redirect
+        return back()->with('sucess', 'comment has updated succefully');
+    }
+    public function edit(Comment $comment){
+        return view('comments.edit', compact('comment'));
+    }
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+        return redirect('/');
+    }
 }

@@ -6,10 +6,18 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
 
         $posts = Post::latest()->get();
+
+
         return view('master', compact('posts'));
     }
 
@@ -37,11 +45,39 @@ class PostsController extends Controller
 
         Post::create(request(['title', 'body']));
 
+        auth()->user()->posts()->create($request->all());
 
         //redirect
         return redirect('/posts')->with('success', 'post has created succefully');
     }
 
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
 
+    public function update(Request $request, Post $post)
+    {
+        if (auth()->user()->id != $post->user_id) {
+            abort(404);
+        }
+        // validate
+        $this->validate($request, [
+            'title'=>'required',
+            'body' =>'required',
+        ]);
+        // Store
+        $post->update($request->all());
+        // Redirect
+        return  redirect()->route('posts.update', $post);
+    }
+    public function destroy(Post $post)
+    {
+        if (auth()->user()->id != $post->user_id) {
+            abort(404);
+        }
+        $post->delete();
+        return redirect('/');
+    }
 
 }

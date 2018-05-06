@@ -38,7 +38,7 @@
                                 <button type="submit" class="btn btn-primary">Done editing </button>
                             </div>
 
-                            @include ('layouts.errors')
+
 
                         </form>
                     </div>
