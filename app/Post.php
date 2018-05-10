@@ -1,8 +1,8 @@
 <?php
 
 namespace App;
-
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -29,6 +29,38 @@ class Post extends Model
     }
 
 
+    public function isCreatedBy(User $user)
+    {
+        return $this->user_id == $user->id;
+    }
+
+
+    public function scopeGetAll ($q)
+    {
+        return $this->hasMany(Vote::class);
+
+    }
+
+    public function getAuthIsVote()
+    {
+        return $this->votes()->where('user_id', auth()->user()->id)->first();
+    }
+
+    public function isLikedByAuth()
+    {
+        return (bool) $this->votes()
+            ->where('user_id', auth()->user()->id)
+            ->where('type', 1)
+            ->first();
+    }
+
+    public function isDisLikedByAuth()
+    {
+        return (bool) $this->votes()
+            ->where('user_id', auth()->user()->id)
+            ->where('type',-1)
+            ->first();
+    }
 
 
 

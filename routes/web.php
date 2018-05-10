@@ -13,7 +13,10 @@
 
 Route::get('/', function () { return view('master');
 });
+Route::get('/', 'PostsController@index')->name('home');
+
 Route::get('/posts/post','PostsController@index');
+
 Route::get('/posts/create','PostsController@create')->name('posts.create');
 Route::get('/posts','PostsController@store');
 Route::get('/posts,{post}','PostsController@show')->name('posts.show');
@@ -28,6 +31,10 @@ Route::post('/posts/{post}/comments','Commentscontroller@store')->name('comments
 Route::get('/comments/{comment}/edit','CommentsController@edit')->name('comments.edit');
 Route::get('/comments/{comment}','CommentsController@update')->name('comments.update');
 Route::get('/comments/{comment}/delete','CommentsController@destroy')->name('comments.delete');
+
+
+Route::post('/posts/{post}','VoteController@vote')->name('post.vote');
+
 
 Route::get('/', 'PostsController@index')->name('Master');
 

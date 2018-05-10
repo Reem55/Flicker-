@@ -15,8 +15,7 @@ class PostsController extends Controller
     public function index()
     {
 
-        $posts = Post::latest()->get();
-
+        $posts = Post::all();
 
         return view('master', compact('posts'));
     }
@@ -42,10 +41,10 @@ class PostsController extends Controller
             'title' => 'required',
             'body' => 'required'
         ]);
+        auth()->user()->posts()->create($request->all());
 
         Post::create(request(['title', 'body']));
 
-        auth()->user()->posts()->create($request->all());
 
         //redirect
         return redirect('/posts')->with('success', 'post has created succefully');

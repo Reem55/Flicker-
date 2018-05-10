@@ -1,31 +1,42 @@
 @extends('layouts.app')
 @section('content')
 
+
     <div class="col-sm-8 blog-main">
         <div class="col-sm-8 blog-main">
             <div class="blog-post">
                 <div class="card">
                     <div class="card-block">
                         <h2 class="blog-post-title">
+                          <a href="posts/{{$post->id}}">
                             {{ $post->title }}
+                          </a>
                         </h2>
 
-                        <p class="blog-post-meta"> {{ $post->created_at->format('Y-m-d') }}<br>
-                           {{ $post->body }}
+                        <p class="blog-post-meta"> {{ $post->created_at->toFormattedDateString()  }}<br>
+                            <strong>             {{ $post->body }}      </strong>
                     </div>
 
-                    <br/>
+
                 </div>
             </div>
+            @if(auth()->id() == $post->user_id)
+                <strong>
+                    {{ $post->created_at->diffForHumans() }}
+                    -
+                    {{ $post->user->name }}
+                </strong>
+
+                <a class="btn btn" href="{{ route('posts.edit', $post) }}"> Edit post </a> |
+                <a class="btn btn" href="{{ route('posts.delete', $post) }}"> Delete Post </a>
+
+                @endif
 
 
-                <a class="btn btn-success" href="{{ route('posts.edit', $post) }}"> Edit post </a> |
-                <a class="btn btn-danger" href="{{ route('posts.delete', $post) }}"> Delete Post </a>
-
-
-
-            <hr>
             <div style="width:100%">
+
+
+
 
 
         <div class="comment">
@@ -39,7 +50,11 @@
 
 
 
-
+                        <strong>
+                            {{ $comment->created_at->diffForHumans() }}
+                            -
+                            {{ $comment->user->name }}
+                        </strong>
 
                         <a class="btn btn" href="{{ route('comments.edit',[$comment->id]) }}" > Edit Comment </a>
                         <a class="btn btn" href="{{ route('comments.delete',[$comment->id]) }}"> Delete Comment </a>

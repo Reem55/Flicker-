@@ -41,7 +41,12 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+
 /*
+ *
+ * 'Form' => 'Collective\Html\FormFacade',
+
+
 |--------------------------------------------------------------------------
 | Return The Application
 |--------------------------------------------------------------------------
