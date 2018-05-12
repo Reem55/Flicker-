@@ -28,7 +28,7 @@
                 </strong>
 
                 <a class="btn btn" href="{{ route('posts.edit', $post) }}"> Edit post </a> |
-                <a class="btn btn" href="{{ route('posts.delete', $post) }}"> Delete Post </a>
+                <a class="btn btn" href="{{ route('posts.destroy', $post) }}"> Delete Post </a>
 
                 @endif
 
