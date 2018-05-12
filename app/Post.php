@@ -1,54 +1,56 @@
 <?php
 
 namespace App;
-use App\Models\User;
-use App\Models\Comment;
+
+use App;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'user_id'];
-
+    protected $fillable = [
+        'title',
+        'body', 
+        'user_id',
+     ];
 
     public function comments()
     {
-            return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class);
     }
 
+    // bad-practice
+    // you did not even use it
     public function addComment($body)
     {
-
-      $this->comments()->create(compact('body'));
-
+        $this->comments()->create(compact('body'));
     }
 
-
+    // bad-practice, better to named 'publisher' or 'auther'
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 
     public function isCreatedBy(User $user)
     {
         return $this->user_id == $user->id;
     }
 
-
-    public function scopeGetAll ($q)
+    // bad-practice, should be "votes" and this aint the scope shape!!
+    public function scopeGetAll($q)
     {
         return $this->hasMany(Vote::class);
-
     }
 
     public function getAuthIsVote()
-    {
+    {        
         return $this->votes()->where('user_id', auth()->user()->id)->first();
     }
-
+    
     public function isLikedByAuth()
     {
-        return (bool) $this->votes()
+        // better to user the shortcut than write (bool)
+        return !! $this->votes()
             ->where('user_id', auth()->user()->id)
             ->where('type', 1)
             ->first();
@@ -56,14 +58,12 @@ class Post extends Model
 
     public function isDisLikedByAuth()
     {
-        return (bool) $this->votes()
+        // better to user the shortcut than write (bool)
+        return !! $this->votes()
             ->where('user_id', auth()->user()->id)
-            ->where('type',-1)
+            ->where('type', -1)
             ->first();
     }
-
-
-
 }
 
 
