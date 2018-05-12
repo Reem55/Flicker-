@@ -15,6 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
+            // Where are there relations??
             $table->integer('post_id');
             $table->integer('user_id');
             $table->string('body');
