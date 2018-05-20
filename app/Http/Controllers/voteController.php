@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Post;
 use Illuminate\Http\Request;
 
 class voteController extends Controller
@@ -13,17 +13,19 @@ class voteController extends Controller
            'type'=>'required|in:1,-1',
        ]);
 
-       if ($vote = $post->getAuthIsVote()){
+       if ($vote = $post->getAuthIsVote()) {
            $vote->update([
-               'user_id' => $post->id,
-               'type' =>$request->type,
+               'user_id' => auth()->user()->id,
+               'post_id' => $post->id,
+               'type' => $request->type,
            ]);
 
            return back();
        }
+
        $post->votes()->create([
-           'user_id'=> auth()->user()->id,
-         'type' => $request ->type,
+           'user_id' => auth()->user()->id,
+            'type' => $request ->type,
        ]);
 
        return back();

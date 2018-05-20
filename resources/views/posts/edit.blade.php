@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <form method="post" action="{{route('posts.update', $post)  }}">
+                        <form method="post" action="{{route('posts.update', $post->id)  }}">
                             <input type="hidden" name="_method" value="PUT">
 
                             {{ csrf_field() }}

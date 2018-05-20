@@ -2,30 +2,20 @@
 
 namespace App;
 
-use App;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     protected $fillable = [
-        'title',
-        'body', 
-        'user_id',
-     ];
+        'title', 'body', 'user_id'
+    ];
 
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // bad-practice
-    // you did not even use it
-    public function addComment($body)
-    {
-        $this->comments()->create(compact('body'));
-    }
 
-    // bad-practice, better to named 'publisher' or 'auther'
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -36,37 +26,41 @@ class Post extends Model
         return $this->user_id == $user->id;
     }
 
-    // bad-practice, should be "votes" and this aint the scope shape!!
-    public function scopeGetAll($q)
+
+    public function scopeGetAll ($q)
+    {
+        return $this->with(['likes', 'post', 'user']);
+    }
+
+
+    public function votes()
     {
         return $this->hasMany(Vote::class);
     }
 
+
     public function getAuthIsVote()
-    {        
+    {
         return $this->votes()->where('user_id', auth()->user()->id)->first();
     }
-    
+
+
     public function isLikedByAuth()
     {
-        // better to user the shortcut than write (bool)
-        return !! $this->votes()
+        return (bool) $this->votes()
             ->where('user_id', auth()->user()->id)
             ->where('type', 1)
             ->first();
     }
 
-    public function isDisLikedByAuth()
+
+    public function isDislikedByAuth()
     {
-        // better to user the shortcut than write (bool)
-        return !! $this->votes()
+
+        return (bool) $this->votes()
             ->where('user_id', auth()->user()->id)
             ->where('type', -1)
             ->first();
     }
+
 }
-
-
-
-
-

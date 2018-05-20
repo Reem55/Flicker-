@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-use App\Models\User;
+
 use Illuminate\Database\Eloquent\Model;
 
 class vote extends Model
@@ -10,12 +10,10 @@ class vote extends Model
         'post_id', 'user_id', 'type'
     ];
 
-
     public $timestamps = false;
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }

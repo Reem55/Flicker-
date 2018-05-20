@@ -1,7 +1,9 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: LapStore
- * Date: 19/05/2018
- * Time: 11:29 م
- */
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1> Welcome to flicker</h1>
+</body>
+</html>

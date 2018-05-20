@@ -21,22 +21,12 @@ Route::get('/', 'PostsController@index')->name('home');
 // no need to write all these route if you gonna follw the laravel convention
 Route::resource('/posts', 'PostsController');
 
-// Route::get('/posts/create','PostsController@create')->name('posts.create');
-// Route::get('/posts','PostsController@store');
-// Route::get('/posts,{post}','PostsController@show')->name('posts.show');
-// Route::put('/posts/{post}/update','PostsController@update')->name('posts.update');
-// Route::get('/posts/{post}/edit','PostsController@edit')->name('posts.edit');
-// Route::post('/posts','PostsController@store');
-// Route::get('/posts/{post}/delete','PostsController@destroy')->name('posts.delete');
-
 Route::post('/posts/{post}/comments','Commentscontroller@store')->name('comments.store');
 Route::get('/comments/{comment}/edit','CommentsController@edit')->name('comments.edit');
-Route::get('/comments/{comment}','CommentsController@update')->name('comments.update');
+Route::put('/comments/{comment}','CommentsController@update')->name('comments.update');
 Route::get('/comments/{comment}/delete','CommentsController@destroy')->name('comments.delete');
 
-
-//Route::post('/posts/{post}','VoteController@vote')->name('post.vote');
-
+Route::post('/posts/{post}/vote','VoteController@vote')->name('post.vote');
 
 // Route::get('/', 'PostsController@index')->name('Master');
 

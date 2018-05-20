@@ -17,8 +17,14 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             // Where are there relations??
             $table->integer('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+
             $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+
             $table->string('body');
+
             $table->timestamps();
         });
     }

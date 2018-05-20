@@ -16,7 +16,7 @@
                         <p class="blog-post-meta"> {{ $post->created_at->toFormattedDateString()  }}<br>
                         {{ $post->body }}
                     </div>
-
+                    <p> hii</p>
 
                 </div>
             </div>
